@@ -3,9 +3,9 @@
 #include <cassert>
 #include <exception>
 #include <fstream>
-#include <sstream>
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <stdlib.h>
 #include <string>
 #include <vector>
@@ -53,7 +53,7 @@ namespace gadget2
             std::fill(_data.__fill__, _data.__fill__ + HDR_SIZE, 0);
         }
         snap_header(raw_header data) : _data(data) {}
-        double get_BoxSize()const{return _data.BoxSize;}
+        double get_BoxSize() const { return _data.BoxSize; }
     };
 
     std::ostream& operator<<(std::ostream& os, const snap_header& H);
@@ -65,7 +65,7 @@ namespace gadget2
     class base_snapshot
     {
        public:
-        base_snapshot(const char* _fname) : filename(_fname) {}
+        base_snapshot(const std::string _fname) : filename(_fname) {}
 
         std::string filename;
         snap_header header;
@@ -93,7 +93,7 @@ namespace gadget2
         mutable std::ofstream out;
 
        public:
-        base_osnapshot(const char* _fname)
+        base_osnapshot(const std::string _fname)
             : base_snapshot<format>(_fname), out(_fname, std::ios::binary)
         {
         }
@@ -132,17 +132,17 @@ namespace gadget2
         std::ifstream in;
 
        public:
-        base_isnapshot(const char* _fname)
-            : base_snapshot<format>(_fname)
+        base_isnapshot(const std::string _fname) : base_snapshot<format>(_fname)
         {
             try
             {
                 in.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-                in.open(_fname,std::ios::binary);
-            }catch(const std::ifstream::failure& e)
+                in.open(_fname, std::ios::binary);
+            }
+            catch (const std::ifstream::failure& e)
             {
                 std::ostringstream mess;
-                mess << "Exception opening file "<<_fname ;
+                mess << "Exception opening file " << _fname;
                 throw std::runtime_error(mess.str());
             }
         }
@@ -190,7 +190,8 @@ namespace gadget2
                 in.read(reinterpret_cast<char*>(&blksize1), sizeof(blksize1));
                 in.read(reinterpret_cast<char*>(&H), sizeof(H));
                 in.read(reinterpret_cast<char*>(&blksize2), sizeof(blksize2));
-            }catch (std::exception & e)
+            }
+            catch (std::exception& e)
             {
                 std::cerr << e.what() << '\n';
                 throw std::runtime_error("Unable to read HEAD block");
@@ -235,7 +236,7 @@ namespace gadget2
             // this->skip_block(in);
             return in;
         }
-        isnapshot(const char* _fname) : base_isnapshot(_fname)
+        isnapshot(const std::string _fname) : base_isnapshot(_fname)
         {
             // std::ifstream in(_fname, std::ios::binary);
             scan_block<int*>("HEAD");
@@ -282,7 +283,7 @@ namespace gadget2
             return in;
         }
 
-        isnapshot(const char* _fname) : base_isnapshot(_fname)
+        isnapshot(const std::string _fname) : base_isnapshot(_fname)
         {
             // std::ifstream in(_fname, std::ios::binary);
             scan_block<int*>("HEAD");
@@ -294,7 +295,7 @@ namespace gadget2
     class osnapshot<1> : public base_osnapshot<1>
     {
        public:
-        osnapshot(const char* _fname) : base_osnapshot(_fname) {}
+        osnapshot(const std::string _fname) : base_osnapshot(_fname) {}
         template <class iterator>
         void write_block(const std::string label,
                          iterator begin,
@@ -319,7 +320,7 @@ namespace gadget2
         }
 
        public:
-        osnapshot(const char* _fname) : base_osnapshot(_fname) {}
+        osnapshot(const std::string _fname) : base_osnapshot(_fname) {}
         template <class iterator>
         void write_block(const std::string label,
                          iterator begin,
