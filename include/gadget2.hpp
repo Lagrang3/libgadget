@@ -109,7 +109,7 @@ namespace gadget2
             for (; begin != end; ++begin)
             {
                 auto& tmp = *begin;
-                out.write(reinterpret_cast<char*>(&tmp), sz);
+                out.write(reinterpret_cast<const char*>(&tmp), sz);
             }
             out.write(reinterpret_cast<const char*>(&blksize), sizeof(blksize));
             return out;
