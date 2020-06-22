@@ -1,6 +1,6 @@
-#include "gadget2.hpp"
+#include "gadget.hpp"
 
-namespace gadget2
+namespace gadget
 {
     std::ostream& operator<<(std::ostream& os, const snap_header& H)
     {
@@ -46,4 +46,4 @@ namespace gadget2
         return os;
     }
 
-}  // namespace gadget2
+}  // namespace gadget

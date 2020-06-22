@@ -12,7 +12,7 @@
 
 #define debug(x) std::cout << #x " = " << x << '\n';
 
-namespace gadget2
+namespace gadget
 {
     const int PTYPES = 6;  // number of particle types
     const uint32_t HDR_SIZE = 256;
@@ -348,4 +348,4 @@ namespace gadget2
         }
     };
 
-}  // namespace gadget2
+}  // namespace gadget

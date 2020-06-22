@@ -1,4 +1,4 @@
-#include "gadget2.hpp"
+#include "gadget.hpp"
 #include <iostream>
 #include <random>
 using namespace std;
@@ -6,7 +6,7 @@ using namespace std;
 template<unsigned int format>
 void gaussian(const char* fname,const float sigma)
 {
-    gadget2::osnapshot<format> snap(fname);
+    gadget::osnapshot<format> snap(fname);
     const double BoxSize = 320'000;
     {
         auto& header = snap.get_raw_header();
@@ -24,7 +24,7 @@ void gaussian(const char* fname,const float sigma)
     std::uniform_real_distribution<float> uniform(0.0, 1.0);
 
     int npart = 0;
-    for (int i = 0; i < gadget2::PTYPES; ++i)
+    for (int i = 0; i < gadget::PTYPES; ++i)
         npart += snap.npart(i);
 
     std::vector<float> pos(3 * npart), vel(3 * npart);
@@ -50,7 +50,7 @@ void gaussian(const char* fname,const float sigma)
 template<unsigned int format>
 void random(const char* fname)
 {
-    gadget2::osnapshot<format> snap(fname);
+    gadget::osnapshot<format> snap(fname);
 
     {
         auto& header = snap.get_raw_header();
@@ -65,7 +65,7 @@ void random(const char* fname)
     std::uniform_real_distribution<double> uniform(0.0, 1.0);
 
     int npart = 0;
-    for (int i = 0; i < gadget2::PTYPES; ++i)
+    for (int i = 0; i < gadget::PTYPES; ++i)
         npart += snap.npart(i);
 
     std::vector<float> pos(3 * npart), vel(3 * npart);

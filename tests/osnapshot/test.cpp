@@ -1,4 +1,4 @@
-#include "gadget2.hpp"
+#include "gadget.hpp"
 #include <cassert>
 #include <fstream>
 #include <iostream>
@@ -8,7 +8,7 @@
 template <unsigned int format>
 void write_snapshot(const char* fname)
 {
-    gadget2::osnapshot<format> snap(fname);
+    gadget::osnapshot<format> snap(fname);
 
     // generate header ...
     {
@@ -29,7 +29,7 @@ void write_snapshot(const char* fname)
     std::uniform_real_distribution<double> uniform(0.0, 1.0);
 
     int npart = 0;
-    for (int i = 0; i < gadget2::PTYPES; ++i)
+    for (int i = 0; i < gadget::PTYPES; ++i)
         npart += snap.npart(i);
 
     std::vector<float> pos(3 * npart), vel(3 * npart);
@@ -52,11 +52,11 @@ void write_snapshot(const char* fname)
 template <unsigned int format>
 void read_snapshot(const char* fname)
 {
-    gadget2::isnapshot<format> snap(fname);
+    gadget::isnapshot<format> snap(fname);
     std::cout << snap << '\n';
 
     int npart = 0;
-    for (int i = 0; i < gadget2::PTYPES; ++i)
+    for (int i = 0; i < gadget::PTYPES; ++i)
         npart += snap.npart(i);
 
     const int display = 5;

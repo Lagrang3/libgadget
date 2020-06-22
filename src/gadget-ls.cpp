@@ -1,4 +1,4 @@
-#include "gadget2.hpp"
+#include "gadget.hpp"
 #include <cassert>
 #include <fstream>
 #include <iostream>
@@ -8,11 +8,11 @@ int g2_ls(int narg, char** argv)
 {
     try
     {
-        gadget2::isnapshot<format> snap(argv[1]);
+        gadget::isnapshot<format> snap(argv[1]);
         std::cout << snap << '\n';
 
         int npart = 0;
-        for (int i = 0; i < gadget2::PTYPES; ++i)
+        for (int i = 0; i < gadget::PTYPES; ++i)
             npart += snap.npart(i);
 
         const int display = 5;

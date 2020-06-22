@@ -1,2 +1,2 @@
-src = [files (['gadget2.cpp'])]
-g2_src = files(['g2-ls.cpp'])
+src = [files (['gadget.cpp'])]
+g2_src = files(['gadget-ls.cpp'])

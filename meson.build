@@ -1,4 +1,4 @@
-project('gadget2-reader','cpp',
+project('libgadget','cpp',
         default_options : ['cpp_std=c++17',
        'warning_level=3' ],
         version: '0.0.1')
@@ -10,10 +10,10 @@ _format = find_program('clang-format', required:false)
 pkg=import('pkgconfig')
 
 
-g2_lib = library('gadget2',src+headers,include_directories: include_dirs,
+g2_lib = library('gadget',src+headers,include_directories: include_dirs,
     install: true)
 
-g2_exe = executable('gadget2-ls',g2_src+headers,include_directories: include_dirs,
+g2_exe = executable('gadget-ls',g2_src+headers,include_directories: include_dirs,
     install: true,
     link_with: g2_lib)
 
